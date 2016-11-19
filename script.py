@@ -47,7 +47,13 @@ def filter(im, kernel):
     imm = imm[nn:a-nn-1, nn:b-nn-1]
     return imm
 
+def mean_squared_error(im1, im2):
+    sub = im1 - im2
+    return (sub*sub).mean()
+
 ################### main ########################
+
+print("\n\n")
 
 original_image = misc.imread('images/lena.gif')
 original_image = np.array(original_image, dtype='f')
@@ -57,4 +63,9 @@ filenames = ['lena-salt-pepper', 'lena-blurred','lena-mean-shift', 'lena-speckle
 for f in filenames:
     test_image = misc.imread('images/' + f + '.gif')
     test_image = np.array(test_image, dtype='f')
-    print quality_index(original_image, test_image)
+    quality = quality_index(original_image, test_image)
+    mse = mean_squared_error(original_image, test_image)
+    print f, mse, quality
+
+
+print("\n\n")
